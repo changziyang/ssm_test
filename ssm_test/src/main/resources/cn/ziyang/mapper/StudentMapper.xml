@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ziyang.mapper.StudentMapper">
+
+    <select id="findAll" resultType="student">
+      select * from t_student
+    </select>
+    <select id="findOne" resultType="student" parameterType="int">
+      select * from t_student where id=#{id}
+    </select>
+
+    <insert id="add" parameterType="student">
+        insert into t_student values (#{id},#{name},#{sex},#{age},#{address})
+    </insert>
+
+    <update id="update" parameterType="student">
+        update t_student set name=#{name},sex=#{sex},age=#{age},address=#{address} where id = #{id}
+    </update>
+
+    <delete id="del" parameterType="java.util.ArrayList">
+        delete from t_student
+        <where>
+        <foreach collection="array" item="id" open="id in (" close=")" separator=",">
+            #{id}
+        </foreach>
+        </where>
+    </delete>
+</mapper>
